@@ -1,0 +1,44 @@
+<svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pot -->
+  <path
+    d="M60 220 L140 220 L135 240 L65 240 Z"
+    fill="#8b6751"
+  />
+  
+  <!-- Trunk -->
+  <path
+    d="M95 220 Q90 200 85 180 Q80 160 90 140 Q95 120 100 100"
+    stroke="#8b6751"
+    stroke-width="8"
+    fill="none"
+    stroke-linecap="round"
+  />
+  
+  <!-- Main branch -->
+  <path
+    d="M100 120 Q120 115 140 110"
+    stroke="#8b6751"
+    stroke-width="4"
+    fill="none"
+    stroke-linecap="round"
+  />
+  
+  <!-- Secondary branch -->
+  <path
+    d="M95 140 Q80 135 70 130"
+    stroke="#8b6751"
+    stroke-width="3"
+    fill="none"
+    stroke-linecap="round"
+  />
+  
+  <!-- Foliage clusters -->
+  <circle cx="105" cy="95" r="25" fill="#359668" />
+  <circle cx="145" cy="105" r="20" fill="#277a53" />
+  <circle cx="65" cy="125" r="18" fill="#359668" />
+  <circle cx="125" cy="80" r="15" fill="#58b58a" />
+  
+  <!-- Small details -->
+  <circle cx="85" cy="110" r="8" fill="#277a53" />
+  <circle cx="155" cy="115" r="12" fill="#58b58a" />
+</svg>
