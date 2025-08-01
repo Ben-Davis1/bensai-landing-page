@@ -84,16 +84,36 @@ function App() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, you'd send this to your backend
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 3000);
+    
+    try {
+      // Create mailto link with form data
+      const subject = encodeURIComponent(`New Bensai Inquiry from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\n` +
+        `Email: ${formData.email}\n\n` +
+        `Message:\n${formData.message}\n\n` +
+        `---\n` +
+        `Sent from Bensai website contact form`
+      );
+      
+      // Open email client with pre-filled data
+      window.location.href = `mailto:hello@bensai.co.uk?subject=${subject}&body=${body}`;
+      
+      // Show success message
+      setIsSubmitted(true);
+      
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ name: '', email: '', message: '' });
+      }, 5000);
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting the form. Please try again or email hello@bensai.co.uk directly.');
+    }
   };
 
   return (
@@ -310,8 +330,9 @@ function App() {
                     Thank you for reaching out!
                   </h3>
                   <p className="text-bonsai-brown-600">
-                    We've received your message and will get back to you within 24 hours. 
-                    Time to start planning your digital garden!
+                    Your email client should open with a pre-filled message to hello@bensai.co.uk. 
+                    If it doesn't open automatically, please email hello@bensai.co.uk directly.
+                    I'll get back to you within 24 hours!
                   </p>
                 </div>
               )}
