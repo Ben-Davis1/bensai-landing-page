@@ -88,27 +88,33 @@ function App() {
     e.preventDefault();
     
     try {
-      // Create mailto link with form data
-      const subject = encodeURIComponent(`New Bensai Inquiry from ${formData.name}`);
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\n` +
-        `Email: ${formData.email}\n\n` +
-        `Message:\n${formData.message}\n\n` +
-        `---\n` +
-        `Sent from Bensai website contact form`
-      );
-      
-      // Open email client with pre-filled data
-      window.location.href = `mailto:hello@bensai.co.uk?subject=${subject}&body=${body}`;
-      
-      // Show success message
-      setIsSubmitted(true);
-      
-      // Reset form after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({ name: '', email: '', message: '' });
-      }, 5000);
+      // Send form data directly to Formspree
+      const response = await fetch('https://formspree.io/f/xqaldkle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `New Bensai Inquiry from ${formData.name}`,
+          _replyto: formData.email,
+        }),
+      });
+
+      if (response.ok) {
+        // Show success message
+        setIsSubmitted(true);
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: '', email: '', message: '' });
+        }, 5000);
+      } else {
+        throw new Error('Form submission failed');
+      }
       
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -330,9 +336,9 @@ function App() {
                     Thank you for reaching out!
                   </h3>
                   <p className="text-bonsai-brown-600">
-                    Your email client should open with a pre-filled message to hello@bensai.co.uk. 
-                    If it doesn't open automatically, please email hello@bensai.co.uk directly.
-                    I'll get back to you within 24 hours!
+                    Your message has been sent directly to hello@bensai.co.uk! 
+                    I'll get back to you within 24 hours to discuss your project.
+                    Time to start planning your digital garden!
                   </p>
                 </div>
               )}
